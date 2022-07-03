@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<style>
+    .btn-primary{
+        float: right;
+    }
+</style>
+<body>
+    <div class="wrapper">
+        <form id="form">
+            <div class="container">
+                <div class="row">
+                    <h2>Registration</h2>
+                    <h6>Your information will be secret</h6>
+                    <hr class="mb-3">
+                    <div>
+                        <label for="email">Email</label>
+                        <input class="form-control" type="email" name="email" id="email" required>
+                    </div>
+                    <div>
+                        <label for="login">Login</label>
+                        <input class="form-control" type="text" name="login" id="login" required>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" name="password" id="password" required>
+                    </div>
+                    <div>
+                        <label for="reenter">Re-enter password</label>
+                        <input class="form-control" type="password" name="reenter" id="reenter" required>
+                    </div>
+                </div>
+                <hr class="mb-3">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    const form = document.getElementById('form')
+    let users = []
+    form.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        const login = document.getElementById('login').value;
+        const password = document.getElementById('password').value;
+        const repass = document.getElementById('reenter').value;
+        const email = document.getElementById('email').value;
+        if(password == repass){
+            users.push({"email":email,"login":login,"password":password});
+            alert('Successfully registered!');
+            localStorage.setItem("users",JSON.stringify(users));
+        }
+        else{
+            alert("Password is not same!");
+        }
+    })
+</script>
+</html>
