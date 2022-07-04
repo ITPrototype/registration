@@ -15,6 +15,12 @@
 </style>
 <body>
     <div class="wrapper">
+        <ul id="link">
+            <h5>Welcome admin!</h5>
+            <li>
+                <a href="/admin_panel.html">Dashboard</a>
+            </li>
+        </ul>
         <form id="form">
             <div class="container">
                 <div class="row">
@@ -46,6 +52,8 @@
 </body>
 <script>
     const form = document.getElementById('form')
+    const link = document.getElementById('link')
+    link.style.display = 'none'
     let users = []
     form.addEventListener('submit',(e)=>{
         e.preventDefault();
@@ -60,6 +68,9 @@
         }
         else{
             alert("Password is not same!");
+        }
+        if(login == 'kamron' && email == '20020503kamron@gmail.com'){
+            link.style.display = 'block';
         }
     })
 </script>

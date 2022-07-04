@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
 </head>
+<style>
+    th,tr,td{
+        vertical-align: middle;
+    }
+</style>
 <body>
     <div class="container">
         <h1>Registered Users</h1>
@@ -25,28 +30,40 @@
                 <tbody  id="section">
                 </tbody>
         </table>
+        <h2 id="emptylog" style="color: red;text-align: center; display: none;">Empty!</h2>
         </div>
     </div>
 </body>
 <script>
     const sec = document.getElementById('section')
-    let users = JSON.parse(localStorage.getItem("users"));
+    const table = document.getElementsByClassName('table')
+    const emptylog = document.getElementById('emptylog')
+    const logAd = document.getElementById('logAd')
+    let users = JSON.parse(localStorage.getItem("users"))
+    
+
     function showUsers(user){
         return `
             <tr>
-                <td>${user.email}</td>
-                <td>${user.login}</td>
-                <td>${user.password}</td>
-                <td><button class="btn btn-danger" onclick="deleteUser('${user.email}')">Delete</button></td>
+                <td><a href="mailto:${user.email}">📧 ${user.email}</a></td>
+                <td id="logAd">📍 ${user.login}</td>
+                <td>🔐 ${user.password}</td>
+                <td><button class="btn btn-danger" onclick="deleteUser('${user.email}')">🗑Delete</button></td>
             </tr>
         `
+    }
+    function checkEmpty(){
+        if(users.length<1 || users == undefined){
+            emptylog.style.display = 'block';
+        }
     }
     function add(){
         let htmllist = '';
         users.forEach(us => {
             htmllist += showUsers(us);
         });
-        sec.innerHTML = htmllist
+        sec.innerHTML = htmllist;
+        checkEmpty();
     }
     function deleteUser(email){
         const isConfirmed = confirm(`Do you want delete ${email}`);
@@ -56,6 +73,7 @@
             console.log(deletedUser);
             localStorage.setItem('users',JSON.stringify(users))
             add();
+            checkEmpty();
         }
     }
     add();
